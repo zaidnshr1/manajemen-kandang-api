@@ -38,5 +38,5 @@ public class Ternak extends BaseEntity {
     private BigDecimal bobotAwal;
 
     @Enumerated(EnumType.STRING)
-    private StatusTernak statusTernak;
+    private StatusTernak status;
 }

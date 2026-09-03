@@ -1,15 +1,23 @@
 package com.housing_management.api.modules.operasional.entity;
 
+import com.housing_management.api.common.base.BaseEntity;
+import com.housing_management.api.modules.master.entity.Kandang;
 import com.housing_management.api.modules.master.entity.Pakan;
-import com.housing_management.api.modules.master.entity.Ternak;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "log_pemberian_pakan")
-public class LogPemberianPakan {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter @Setter
+public class LogPemberianPakan extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,8 +27,8 @@ public class LogPemberianPakan {
     private Pakan pakan;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "ternak_id")
-    private Ternak ternak;
+    @JoinColumn(nullable = false, name = "kandag_id")
+    private Kandang kandang;
 
     @Column(nullable = false, name = "jumlah_pakai", precision = 10, scale = 2)
     private BigDecimal jumlahPakai;

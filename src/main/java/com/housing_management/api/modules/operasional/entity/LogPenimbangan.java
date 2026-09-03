@@ -1,5 +1,6 @@
 package com.housing_management.api.modules.operasional.entity;
 
+import com.housing_management.api.common.base.BaseEntity;
 import com.housing_management.api.modules.master.entity.Ternak;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter @Builder
-public class LogPenimbangan {
+public class LogPenimbangan extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
