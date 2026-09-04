@@ -4,10 +4,7 @@ import com.housing_management.api.common.base.BaseEntity;
 import com.housing_management.api.modules.master.entity.Kandang;
 import com.housing_management.api.modules.master.entity.Pakan;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "log_pemberian_pakan")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter
+@Getter @Setter @Builder
 public class LogPemberianPakan extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

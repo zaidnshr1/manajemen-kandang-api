@@ -21,7 +21,7 @@ public class PageResponse<T> {
     private int totalPages;
     private boolean last;
 
-    public static <T> PageResponse<T> form(Page<T> page) {
+    public static <T> PageResponse<T> from(Page<T> page) {
         return PageResponse.<T>builder()
                 .content(page.getContent())
                 .pageNo(page.getNumber())

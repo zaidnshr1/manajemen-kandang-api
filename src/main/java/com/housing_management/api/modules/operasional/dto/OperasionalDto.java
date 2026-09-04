@@ -6,6 +6,7 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 public class OperasionalDto {
 
@@ -28,10 +29,10 @@ public class OperasionalDto {
             String kodeTag,
             LocalDate tanggalTimbang,
             BigDecimal bobot,
-            LocalDateTime createdAt
+            OffsetDateTime createdAt
     ) {}
 
-    public record PemberianPakan(
+    public record PemberianPakanRequest(
             @NotNull(message = "Tidak boleh kosong")
             Long kandangId,
             @NotNull(message = "Tidak boleh kosong")
@@ -53,7 +54,7 @@ public class OperasionalDto {
             LocalDateTime tanggal,
             BigDecimal jumlahPakai,
             String satuan,
-            LocalDateTime createdAt
+            OffsetDateTime createdAt
     ) {}
 
     public record KesehatanRequest(
@@ -84,6 +85,6 @@ public class OperasionalDto {
             Integer jumlahTerdampak,
             String catatan,
             BigDecimal biaya,
-            LocalDateTime createdAt
+            OffsetDateTime createdAt
     ) {}
 }

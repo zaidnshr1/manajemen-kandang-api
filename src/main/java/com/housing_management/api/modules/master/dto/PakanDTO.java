@@ -1,4 +1,4 @@
-package com.housing_management.api.modules.master.entity.dto;
+package com.housing_management.api.modules.master.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -6,8 +6,9 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 
-public class PakanDto {
+public class PakanDTO {
 
     public record Request (
 

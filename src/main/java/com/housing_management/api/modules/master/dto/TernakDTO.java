@@ -1,4 +1,4 @@
-package com.housing_management.api.modules.master.entity.dto;
+package com.housing_management.api.modules.master.dto;
 
 import com.housing_management.api.modules.master.entity.StatusTernak;
 import jakarta.validation.constraints.Min;
@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Ternak {
+public class TernakDTO {
 
     public record CreateRequest(
             String kodeTag,

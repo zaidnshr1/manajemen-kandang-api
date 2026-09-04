@@ -25,6 +25,6 @@ public class Pakan extends BaseEntity {
     @Column(nullable = false, name = "stok", precision = 10, scale = 2)
     private BigDecimal stok;
 
-    @Column(nullable = false, name = "harga_persatuan", precision = 12, scale = 12)
+    @Column(nullable = false, name = "harga_per_satuan", precision = 12, scale = 12)
     private BigDecimal hargaPerSatuan;
 }
