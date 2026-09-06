@@ -73,6 +73,6 @@ public class PakanService {
                 satuan,
                 harga
         );
-
     }
+
 }

@@ -19,7 +19,7 @@ public interface PakanRepository extends JpaRepository<Pakan, Long> {
     @Query(value = "SELECT p FROM Pakan p WHERE p.id = :id")
     Optional<Pakan> findByIdWithLock(@Param("id") Long id);
 
-    @Modifying(clearAutomatically = true)
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query(value = "UPDATE pakan " +
                     "SET stok = stok - :jumlah " +
                     "WHERE id = :id AND stok >= :jumlah " +

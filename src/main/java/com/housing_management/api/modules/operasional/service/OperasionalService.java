@@ -13,7 +13,6 @@ import com.housing_management.api.modules.master.service.KandangService;
 import com.housing_management.api.modules.master.service.PakanService;
 import com.housing_management.api.modules.master.service.TernakService;
 import com.housing_management.api.modules.operasional.dto.OperasionalDto;
-import com.housing_management.api.modules.operasional.entity.JenisKejadian;
 import com.housing_management.api.modules.operasional.entity.LogKesehatan;
 import com.housing_management.api.modules.operasional.entity.LogPemberianPakan;
 import com.housing_management.api.modules.operasional.entity.LogPenimbangan;
@@ -24,6 +23,9 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -65,7 +67,7 @@ public class OperasionalService {
     }
 
     @Transactional
-    private OperasionalDto.PemberianPakanResponse catatPemberianPakan(OperasionalDto.PemberianPakanRequest request) {
+    public OperasionalDto.PemberianPakanResponse catatPemberianPakan(OperasionalDto.PemberianPakanRequest request) {
         KandangDTO.Response kandang = kandangService.getById(request.kandangId());
         PakanDTO.Response pakan = pakanService.kurangiStokDanAmbilData(request.pakanId(), request.jumlahPakai());
 
@@ -118,5 +120,28 @@ public class OperasionalService {
                 request.biaya(),
                 log.getCreatedAt()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public OperasionalDto.PenimbanganResponse getPenimbanganTerakhir(Long id) {
+        return logPenimbanganRepository.findTopByTernakIdOrderByTanggalTimbangDesc(id)
+                .map(log -> new OperasionalDto.PenimbanganResponse(
+                        log.getId(),
+                        log.getTernak().getId(),
+                        log.getTernak().getKodeTag(),
+                        log.getTanggalTimbang(),
+                        log.getBobot(),
+                        log.getCreatedAt()
+                )).orElseThrow(() -> new ResourceNotFoundException("LogPenimbangan", "ternakId", id));
+    }
+
+    @Transactional(readOnly = true)
+    public BigDecimal getTotalPakanByKandangAndPeriode(Long kandangId, LocalDateTime startDate, LocalDateTime endDate) {
+        return logPemberianPakanRepository.sumJumlahPakaiByKandangAndTanggalBetween(kandangId, startDate, endDate);
+    }
+
+    @Transactional(readOnly = true)
+    public BigDecimal getTotalKenaikanBobotByKandangAndPeriode(Long kandangId, LocalDateTime startDate, LocalDateTime endDate) {
+        return logPenimbanganRepository.sumKenaikanBobotByKandangAndPeriode(kandangId, startDate, endDate);
     }
 }
