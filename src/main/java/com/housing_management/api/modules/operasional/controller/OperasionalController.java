@@ -19,20 +19,20 @@ public class OperasionalController {
     private final OperasionalService operasionalService;
 
     @PostMapping("/penimbangan")
-    public ResponseEntity<ApiResponse<Void>> catatPenimbangan(@Valid @RequestBody OperasionalDto.PenimbanganRequest request) {
-        operasionalService.catatPenimbangan(request);
-        return ResponseEntity.ok(ApiResponse.success("Log penimbangan berhasil dicatat"));
+    public ResponseEntity<ApiResponse<OperasionalDto.PenimbanganResponse>> catatPenimbangan(@Valid @RequestBody OperasionalDto.PenimbanganRequest request) {
+        OperasionalDto.PenimbanganResponse response = operasionalService.catatPenimbangan(request);
+        return ResponseEntity.ok(ApiResponse.success("Log penimbangan berhasil dicatat", response));
     }
 
     @PostMapping("/pemberian-pakan")
-    public ResponseEntity<ApiResponse<Void>> catatPemberianPakan(@Valid @RequestBody OperasionalDto.PemberianPakanRequest request) {
-        operasionalService.catatPemberianPakan(request);
-        return ResponseEntity.ok(ApiResponse.success("Log pemberian pakan berhasil dicatat dan stok terpotong"));
+    public ResponseEntity<ApiResponse<OperasionalDto.PemberianPakanResponse>> catatPemberianPakan(@Valid @RequestBody OperasionalDto.PemberianPakanRequest request) {
+        OperasionalDto.PemberianPakanResponse response = operasionalService.catatPemberianPakan(request);
+        return ResponseEntity.ok(ApiResponse.success("Log pemberian pakan berhasil dicatat dan stok terpotong", reponse));
     }
 
     @PostMapping("/kesehatan")
-    public ResponseEntity<ApiResponse<Void>> catatKesehatan(@Valid @RequestBody OperasionalDto.KesehatanRequest request) {
-        operasionalService.catatKesehatan(request);
-        return ResponseEntity.ok(ApiResponse.success("Log kesehatan berhasil dicatat"));
+    public ResponseEntity<ApiResponse<OperasionalDto.KesehatanResponse>> catatKesehatan(@Valid @RequestBody OperasionalDto.KesehatanRequest request) {
+        OperasionalDto.KesehatanResponse response = operasionalService.catatKesehatan(request);
+        return ResponseEntity.ok(ApiResponse.success("Log kesehatan berhasil dicatat", response));
     }
 }

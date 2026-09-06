@@ -28,6 +28,4 @@ public interface LogPenimbanganRepository extends JpaRepository<LogPenimbangan, 
             @Param("stratDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate
             );
-
-    Optional<LogPenimbangan> findTopByTernakIdOrderByTanggalTimbangAsc(Long ternakId);
 }

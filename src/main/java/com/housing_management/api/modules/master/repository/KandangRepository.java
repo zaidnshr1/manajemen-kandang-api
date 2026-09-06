@@ -9,5 +9,4 @@ import java.util.Optional;
 @Repository
 public interface KandangRepository extends JpaRepository<Kandang, Long> {
     boolean existsByKodeKandang(String kodeKandang);
-    Optional<Kandang> findByKodeKandang(String kodeKandang);
-}
+    Optional<Kandang> findByKodeKandang(String kodeKandang);}
