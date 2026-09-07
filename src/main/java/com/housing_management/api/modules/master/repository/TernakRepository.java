@@ -20,14 +20,14 @@ public interface TernakRepository extends JpaRepository<Ternak, Long> {
     Optional<Ternak> findByIdWithDetails(@Param("id") Long id);
 
     @Query(value = "SELECT t FROM Ternak t " +
-                   "FETCH JOIN t.kategori " +
-                   "FETCH JOIN t.kandang " +
+                   "JOIN FETCH t.kategori " +
+                   "JOIN FETCH t.kandang " +
                    "WHERE t.status = :status",
            countQuery = "SELECT count(t) FROM Ternak t WHERE t.status = :status")
     Page<Ternak> findAllByStatusWithDetails(@Param("status")StatusTernak status, Pageable pageable);
 
     @Query(value = "SELECT COALESCE(SUM(t.jumlahPopulasi), 0) FROM Ternak t " +
-                    "WHERE t.kandang.id  :kandangId AND t.status = 'AKTIF'")
+                    "WHERE t.kandang.id = :kandangId AND t.status = 'AKTIF'")
     Integer countActivePopulasiByKandangId(@Param("kandangId")Long kandangId);
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)

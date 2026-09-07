@@ -27,7 +27,7 @@ public class OperasionalController {
     @PostMapping("/pemberian-pakan")
     public ResponseEntity<ApiResponse<OperasionalDto.PemberianPakanResponse>> catatPemberianPakan(@Valid @RequestBody OperasionalDto.PemberianPakanRequest request) {
         OperasionalDto.PemberianPakanResponse response = operasionalService.catatPemberianPakan(request);
-        return ResponseEntity.ok(ApiResponse.success("Log pemberian pakan berhasil dicatat dan stok terpotong", reponse));
+        return ResponseEntity.ok(ApiResponse.success("Log pemberian pakan berhasil dicatat dan stok terpotong", response));
     }
 
     @PostMapping("/kesehatan")
