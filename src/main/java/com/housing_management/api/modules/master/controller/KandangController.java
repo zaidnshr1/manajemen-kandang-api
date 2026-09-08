@@ -38,7 +38,7 @@ public class KandangController {
         return ResponseEntity.ok(ApiResponse.success("Berhasil mengambil seluruh data", responses));
     }
 
-    @GetMapping("/{kodeKandang}")
+    @GetMapping("/kode/{kodeKandang}")
     public ResponseEntity<ApiResponse<KandangDTO.Response>> getByKodeKandang(@PathVariable String kodeKandang) {
         KandangDTO.Response response = kandangService.getByKodeKandang(kodeKandang);
         return ResponseEntity.ok(ApiResponse.success("Data kandang ditemukan", response));

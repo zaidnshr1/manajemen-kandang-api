@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -48,11 +49,14 @@ public class AnalyticsService {
     }
 
     @Transactional(readOnly = true)
-    public AnalyticsDTO.FcrResponse calculateFCR(Long kandangId, LocalDateTime startDate, LocalDateTime endDate) {
+    public AnalyticsDTO.FcrResponse calculateFCR(Long kandangId, LocalDate  startDate, LocalDate endDate) {
         KandangDTO.Response kandang = kandangService.getById(kandangId);
 
-        BigDecimal totalPakan = operasionalService.getTotalPakanByKandangAndPeriode(kandangId, startDate, endDate);
-        BigDecimal totalKenaikanBobot = operasionalService.getTotalKenaikanBobotByKandangAndPeriode(kandangId, startDate, endDate);
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+
+        BigDecimal totalPakan = operasionalService.getTotalPakanByKandangAndPeriode(kandangId, startDateTime, endDateTime);
+        BigDecimal totalKenaikanBobot = operasionalService.getTotalKenaikanBobotByKandangAndPeriode(kandangId, startDateTime, endDateTime);
 
         if (totalKenaikanBobot == null || totalKenaikanBobot.compareTo(BigDecimal.ZERO) <= 0) {
             throw new BusinessLogicException("Total kenaikan bobot harus lebih dari 0 untuk menghitung FCR");

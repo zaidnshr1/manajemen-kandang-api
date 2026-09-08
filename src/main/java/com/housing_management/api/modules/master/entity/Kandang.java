@@ -17,7 +17,7 @@ public class Kandang extends BaseEntity {
     @Column(nullable = false, name = "nama_kandang", length = 100)
     private String namaKandang;
 
-    @Column(nullable = false, name = "kodeKandang", length = 50)
+    @Column(nullable = false, name = "kode_kandang", length = 50)
     private String kodeKandang;
 
     @Column(nullable = false, name = "kapasitas")

@@ -24,7 +24,7 @@ public class LogPemberianPakan extends BaseEntity {
     private Pakan pakan;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "kandag_id")
+    @JoinColumn(nullable = false, name = "kandang_id")
     private Kandang kandang;
 
     @Column(nullable = false, name = "jumlah_pakai", precision = 10, scale = 2)

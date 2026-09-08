@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ResourceNotFoundException extends RuntimeException {
 
     public ResourceNotFoundException(String resourceName, String fieldName, Object fieldValue) {
-        String.format("%s tidak ditemukan dengan %s : '%s'",
-                resourceName, fieldName, fieldValue);
+        super(String.format("%s tidak ditemukan dengan %s : '%s'",
+                resourceName, fieldName, fieldValue));
     }
     public ResourceNotFoundException(String message) {
         super(message);

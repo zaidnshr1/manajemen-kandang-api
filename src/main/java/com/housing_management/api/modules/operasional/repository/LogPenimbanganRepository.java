@@ -25,7 +25,7 @@ public interface LogPenimbanganRepository extends JpaRepository<LogPenimbangan, 
                     ")")
     BigDecimal sumKenaikanBobotByKandangAndPeriode(
             @Param("kandangId") Long kandangId,
-            @Param("stratDate") LocalDateTime startDate,
+            @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate
             );
 }

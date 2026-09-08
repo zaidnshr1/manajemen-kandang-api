@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RestController
@@ -26,8 +27,8 @@ public class AnalyticsController {
     @GetMapping("/fcr")
     public ResponseEntity<ApiResponse<AnalyticsDTO.FcrResponse>> getFCR(
             @RequestParam Long kandangId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate  startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
         AnalyticsDTO.FcrResponse response = analyticsService.calculateFCR(kandangId, startDate, endDate);
         return ResponseEntity.ok(ApiResponse.success("Kalkulasi FCR berhasil", response));
     }
