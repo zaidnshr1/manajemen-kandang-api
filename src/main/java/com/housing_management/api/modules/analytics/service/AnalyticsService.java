@@ -27,8 +27,8 @@ public class AnalyticsService {
     private final OperasionalService operasionalService;
 
     @Transactional(readOnly = true)
-    public AnalyticsDTO.AgdResponse calculateADG(Long ternakId) {
-        TernakDTO.Response ternak = ternakService.getById(ternakId);
+    public AnalyticsDTO.AdgResponse calculateADG(Long ternakId) {
+        TernakDTO.TernakResponse ternak = ternakService.getById(ternakId);
         OperasionalDto.PenimbanganResponse penimbanganTerakhir = operasionalService.getPenimbanganTerakhir(ternakId);
 
         long totalHari = ChronoUnit.DAYS.between(ternak.tanggalMasuk(), penimbanganTerakhir.tanggalTimbang());
@@ -38,7 +38,7 @@ public class AnalyticsService {
 
         BigDecimal selisihBobot = penimbanganTerakhir.bobot().subtract(ternak.bobotAwal());
         BigDecimal adg = selisihBobot.divide(BigDecimal.valueOf(totalHari), 2, RoundingMode.HALF_UP);
-        return new AnalyticsDTO.AgdResponse(
+        return new AnalyticsDTO.AdgResponse(
                 ternakId,
                 ternak.kodeTag(),
                 ternak.bobotAwal(),
@@ -50,7 +50,7 @@ public class AnalyticsService {
 
     @Transactional(readOnly = true)
     public AnalyticsDTO.FcrResponse calculateFCR(Long kandangId, LocalDate  startDate, LocalDate endDate) {
-        KandangDTO.Response kandang = kandangService.getById(kandangId);
+        KandangDTO.KandangResponse kandang = kandangService.getById(kandangId);
 
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.atTime(23, 59, 59);

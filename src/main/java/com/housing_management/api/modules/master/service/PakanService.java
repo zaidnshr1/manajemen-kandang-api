@@ -18,8 +18,8 @@ public class PakanService {
 
     private final PakanRepository pakanRepository;
 
-    private PakanDTO.Response mapToResponse(Pakan entity) {
-        return new PakanDTO.Response(
+    private PakanDTO.PakanResponse mapToResponse(Pakan entity) {
+        return new PakanDTO.PakanResponse(
                 entity.getId(),
                 entity.getNamaPakan(),
                 entity.getStok(),
@@ -28,7 +28,7 @@ public class PakanService {
         );
     }
     @Transactional
-    public PakanDTO.Response create(PakanDTO.Request request) {
+    public PakanDTO.PakanResponse create(PakanDTO.PakanRequest request) {
         Pakan pakan = Pakan.builder()
                 .namaPakan(request.namaPakan())
                 .stok(request.stok())
@@ -41,7 +41,7 @@ public class PakanService {
     }
 
     @Transactional
-    public PakanDTO.Response restock(Long id, PakanDTO.RestockRequest request) {
+    public PakanDTO.PakanResponse restock(Long id, PakanDTO.RestockPakanRequest request) {
         Pakan pakan = pakanRepository.findByIdWithLock(id).orElseThrow(() -> new ResourceNotFoundException("pakan", "id", id));
 
         pakan.setStok(pakan.getStok().add(request.jumlahTambahan()));
@@ -50,14 +50,14 @@ public class PakanService {
     }
 
     @Transactional(readOnly = true)
-    public List<PakanDTO.Response> getAll() {
+    public List<PakanDTO.PakanResponse> getAll() {
         return pakanRepository.findAll().stream()
                 .map(this::mapToResponse)
                 .toList();
     }
 
     @Transactional
-    public PakanDTO.Response kurangiStokDanAmbilData(Long id, BigDecimal jumlah) {
+    public PakanDTO.PakanResponse kurangiStokDanAmbilData(Long id, BigDecimal jumlah) {
         Object[] result = pakanRepository.kurangiStokDanKembalikanNilai(id, jumlah)
                 .orElseThrow(() -> new BusinessLogicException("Gagal: Pakan tidak ditemukan atau stok tidak mencukupi"));
         Long pakanId = ((Number) result[0]).longValue();
@@ -66,7 +66,7 @@ public class PakanService {
         String satuan = (String) result[3];
         BigDecimal harga = (BigDecimal) result[4];
 
-        return new PakanDTO.Response(
+        return new PakanDTO.PakanResponse(
                 pakanId,
                 namaPakan,
                 stokSisa,

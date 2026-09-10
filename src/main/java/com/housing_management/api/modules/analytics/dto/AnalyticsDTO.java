@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class AnalyticsDTO {
 
-    public record AgdResponse(
+    public record AdgResponse(
         Long ternakId,
         String kodeTag,
         BigDecimal bobotAwal,

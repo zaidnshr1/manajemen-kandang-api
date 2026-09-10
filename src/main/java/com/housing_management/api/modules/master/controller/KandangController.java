@@ -19,28 +19,28 @@ public class KandangController {
     private final KandangService kandangService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<KandangDTO.Response>> create(@Valid @RequestBody KandangDTO.Request request) {
-        KandangDTO.Response response = kandangService.create(request);
+    public ResponseEntity<ApiResponse<KandangDTO.KandangResponse>> create(@Valid @RequestBody KandangDTO.KandangRequest request) {
+        KandangDTO.KandangResponse response = kandangService.create(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.success("Berhasil menambahkan kandang baru", response));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<KandangDTO.Response>> getById(@PathVariable Long id) {
-        KandangDTO.Response response = kandangService.getById(id);
+    public ResponseEntity<ApiResponse<KandangDTO.KandangResponse>> getById(@PathVariable Long id) {
+        KandangDTO.KandangResponse response = kandangService.getById(id);
         return ResponseEntity.ok(ApiResponse.success("Data kandang ditemukan", response));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<KandangDTO.Response>>> getAll() {
-        List<KandangDTO.Response> responses =kandangService.getAll();
+    public ResponseEntity<ApiResponse<List<KandangDTO.KandangResponse>>> getAll() {
+        List<KandangDTO.KandangResponse> responses =kandangService.getAll();
         return ResponseEntity.ok(ApiResponse.success("Berhasil mengambil seluruh data", responses));
     }
 
     @GetMapping("/kode/{kodeKandang}")
-    public ResponseEntity<ApiResponse<KandangDTO.Response>> getByKodeKandang(@PathVariable String kodeKandang) {
-        KandangDTO.Response response = kandangService.getByKodeKandang(kodeKandang);
+    public ResponseEntity<ApiResponse<KandangDTO.KandangResponse>> getByKodeKandang(@PathVariable String kodeKandang) {
+        KandangDTO.KandangResponse response = kandangService.getByKodeKandang(kodeKandang);
         return ResponseEntity.ok(ApiResponse.success("Data kandang ditemukan", response));
     }
 }

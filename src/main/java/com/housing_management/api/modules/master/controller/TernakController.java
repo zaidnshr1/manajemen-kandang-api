@@ -21,23 +21,23 @@ public class TernakController {
     private final TernakService ternakService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<TernakDTO.Response>> create(@Valid @RequestBody TernakDTO.CreateRequest request) {
-        TernakDTO.Response response = ternakService.create(request);
+    public ResponseEntity<ApiResponse<TernakDTO.TernakResponse>> create(@Valid @RequestBody TernakDTO.CreateTernakRequest request) {
+        TernakDTO.TernakResponse response = ternakService.create(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.success("Berhasil registrasi ternak baru", response));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<TernakDTO.Response>> getById(@PathVariable Long id) {
-        TernakDTO.Response response = ternakService.getById(id);
+    public ResponseEntity<ApiResponse<TernakDTO.TernakResponse>> getById(@PathVariable Long id) {
+        TernakDTO.TernakResponse response = ternakService.getById(id);
         return ResponseEntity.ok(ApiResponse.success("Data ternak ditemukan", response));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<PageResponse<TernakDTO.Response>>> getAllActive(
+    public ResponseEntity<ApiResponse<PageResponse<TernakDTO.TernakResponse>>> getAllActive(
             @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        PageResponse<TernakDTO.Response> responses = ternakService.getAllActive(pageable);
+        PageResponse<TernakDTO.TernakResponse> responses = ternakService.getAllActive(pageable);
         return ResponseEntity.ok(ApiResponse.success("Berhasil mengambil daftar ternak aktif", responses));
     }
 }

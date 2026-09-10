@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 
 public class PakanDTO {
 
-    public record Request (
+    public record PakanRequest (
 
             @NotBlank(message = "Tidak boleh kosong")
             String namaPakan,
@@ -27,13 +27,13 @@ public class PakanDTO {
             BigDecimal hargaPerSatuan
     ) {}
 
-    public record RestockRequest(
+    public record RestockPakanRequest(
             @NotNull(message = "Tidak boleh kosong")
             @Positive(message = "Harus lebih dari 0")
             BigDecimal jumlahTambahan
     ) {}
 
-    public record Response(
+    public record PakanResponse(
             Long id,
             String namaPakan,
             BigDecimal stok,

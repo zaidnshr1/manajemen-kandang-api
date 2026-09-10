@@ -18,7 +18,7 @@ public class KandangService {
     private final KandangRepository kandangRepository;
 
     @Transactional
-    public KandangDTO.Response create(KandangDTO.Request request) {
+    public KandangDTO.KandangResponse create(KandangDTO.KandangRequest request) {
         if (kandangRepository.existsByKodeKandang(request.kodeKandang())) {
             throw new DuplicateResourceException("Kode kandang '" + request.kodeKandang() + "' sudah digunakan");
         }
@@ -34,26 +34,26 @@ public class KandangService {
     }
 
     @Transactional(readOnly = true)
-    public KandangDTO.Response getById(Long id) {
+    public KandangDTO.KandangResponse getById(Long id) {
         Kandang kandang = kandangRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Kandang", "id", id));
         return mapToResponse(kandang);
     }
 
     @Transactional(readOnly = true)
-    public List<KandangDTO.Response> getAll() {
+    public List<KandangDTO.KandangResponse> getAll() {
         return kandangRepository.findAll().stream()
                 .map(this::mapToResponse)
                 .toList();
     }
 
     @Transactional(readOnly = true)
-    public KandangDTO.Response getByKodeKandang(String kodeKandang) {
+    public KandangDTO.KandangResponse getByKodeKandang(String kodeKandang) {
         Kandang kandang = kandangRepository.findByKodeKandang(kodeKandang).orElseThrow(() -> new ResourceNotFoundException("Kandang", "kode", kodeKandang));
         return mapToResponse(kandang);
     }
 
-    private KandangDTO.Response mapToResponse(Kandang entity) {
-        return new KandangDTO.Response(
+    private KandangDTO.KandangResponse mapToResponse(Kandang entity) {
+        return new KandangDTO.KandangResponse(
                 entity.getId(),
                 entity.getKodeKandang(),
                 entity.getNamaKandang(),

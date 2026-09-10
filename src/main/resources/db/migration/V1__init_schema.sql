@@ -4,8 +4,8 @@ CREATE TABLE kandang (
     kode_kandang VARCHAR(50) NOT NULL,
     kapasitas INT NOT NULL,
     owner_id BIGINT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
 );
 
 CREATE TABLE kategori_ternak (
@@ -14,8 +14,8 @@ CREATE TABLE kategori_ternak (
     jenis_satuan VARCHAR(20) NOT NULL,
     tipe_pencatatan VARCHAR(20) NOT NULL,
     owner_id BIGINT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
 );
 
 CREATE TABLE pakan (
@@ -25,8 +25,8 @@ CREATE TABLE pakan (
     stok NUMERIC(10, 2) NOT NULL,
     harga_per_satuan NUMERIC(12, 2) NOT NULL,
     owner_id BIGINT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
 );
 
 CREATE TABLE ternak (
@@ -39,8 +39,8 @@ CREATE TABLE ternak (
     bobot_awal NUMERIC(8, 2),
     status VARCHAR(20),
     owner_id BIGINT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
 );
 
 CREATE TABLE log_kesehatan (
@@ -52,8 +52,8 @@ CREATE TABLE log_kesehatan (
     catatan TEXT,
     biaya NUMERIC(12, 2),
     owner_id BIGINT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
 );
 
 CREATE TABLE log_pemberian_pakan (
@@ -63,8 +63,8 @@ CREATE TABLE log_pemberian_pakan (
     jumlah_pakai NUMERIC(10, 2) NOT NULL,
     tanggal TIMESTAMP NOT NULL,
     owner_id BIGINT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
 );
 
 CREATE TABLE log_penimbangan (
@@ -73,8 +73,8 @@ CREATE TABLE log_penimbangan (
     tanggal_timbang DATE NOT NULL,
     bobot NUMERIC(8, 2) NOT NULL,
     owner_id BIGINT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ
 );
 
 CREATE INDEX idx_penimbangan_ternak_tanggal ON log_penimbangan (ternak_id, tanggal_timbang DESC)

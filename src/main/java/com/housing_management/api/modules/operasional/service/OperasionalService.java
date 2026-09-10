@@ -41,7 +41,7 @@ public class OperasionalService {
 
     @Transactional
     public OperasionalDto.PenimbanganResponse catatPenimbangan(OperasionalDto.PenimbanganRequest request) {
-        TernakDTO.Response ternak = ternakService.getById(request.ternakId());
+        TernakDTO.TernakResponse ternak = ternakService.getById(request.ternakId());
 
         if (ternak.status() != StatusTernak.AKTIF) {
             throw new BusinessLogicException("Hanya ternak aktif yang dapat timbang");
@@ -68,8 +68,8 @@ public class OperasionalService {
 
     @Transactional
     public OperasionalDto.PemberianPakanResponse catatPemberianPakan(OperasionalDto.PemberianPakanRequest request) {
-        KandangDTO.Response kandang = kandangService.getById(request.kandangId());
-        PakanDTO.Response pakan = pakanService.kurangiStokDanAmbilData(request.pakanId(), request.jumlahPakai());
+        KandangDTO.KandangResponse kandang = kandangService.getById(request.kandangId());
+        PakanDTO.PakanResponse pakan = pakanService.kurangiStokDanAmbilData(request.pakanId(), request.jumlahPakai());
 
         Pakan pakanProxy = entityManager.getReference(Pakan.class, request.pakanId());
         Kandang kandangProxy = entityManager.getReference(Kandang.class, request.kandangId());
@@ -96,7 +96,7 @@ public class OperasionalService {
 
     @Transactional
     public OperasionalDto.KesehatanResponse catatKesehatan(OperasionalDto.KesehatanRequest request) {
-        TernakDTO.Response ternak = ternakService.kurangiPopulasiDanAmbilData(request.ternakId(), request.jumlahTerdampak());
+        TernakDTO.TernakResponse ternak = ternakService.kurangiPopulasiDanAmbilData(request.ternakId(), request.jumlahTerdampak());
 
         Ternak ternakProxy = entityManager.getReference(Ternak.class, request.ternakId());
         LogKesehatan log = LogKesehatan.builder()

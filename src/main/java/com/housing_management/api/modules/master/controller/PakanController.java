@@ -19,22 +19,22 @@ public class PakanController {
     private final PakanService pakanService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<PakanDTO.Response>> create(@Valid @RequestBody PakanDTO.Request request) {
-        PakanDTO.Response response = pakanService.create(request);
+    public ResponseEntity<ApiResponse<PakanDTO.PakanResponse>> create(@Valid @RequestBody PakanDTO.PakanRequest request) {
+        PakanDTO.PakanResponse response = pakanService.create(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.success("Berhasil menambahkan jenis pakan baru", response));
     }
 
     @PutMapping("/{id}/restock")
-    public ResponseEntity<ApiResponse<PakanDTO.Response>> restock(@PathVariable Long id, @Valid @RequestBody PakanDTO.RestockRequest request) {
-        PakanDTO.Response repsonse = pakanService.restock(id, request);
+    public ResponseEntity<ApiResponse<PakanDTO.PakanResponse>> restock(@PathVariable Long id, @Valid @RequestBody PakanDTO.RestockPakanRequest request) {
+        PakanDTO.PakanResponse repsonse = pakanService.restock(id, request);
         return ResponseEntity.ok(ApiResponse.success("Berhasil memperbarui stok pakan", repsonse));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<PakanDTO.Response>>> getAll() {
-        List<PakanDTO.Response> responses = pakanService.getAll();
+    public ResponseEntity<ApiResponse<List<PakanDTO.PakanResponse>>> getAll() {
+        List<PakanDTO.PakanResponse> responses = pakanService.getAll();
         return ResponseEntity.ok(ApiResponse.success("Berhasil mengambil data pakan", responses));
     }
 }

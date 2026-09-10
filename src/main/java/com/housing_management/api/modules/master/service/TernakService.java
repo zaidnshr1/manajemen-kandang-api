@@ -30,8 +30,8 @@ public class TernakService {
     private final KategoriRepository kategoriRepository;
     private final KandangRepository kandangRepository;
 
-    private TernakDTO.Response toResponse(Ternak entity) {
-        return new TernakDTO.Response(
+    private TernakDTO.TernakResponse toResponse(Ternak entity) {
+        return new TernakDTO.TernakResponse(
                 entity.getId(),
                 entity.getKodeTag(),
                 entity.getKategori().getNamaKategori(),
@@ -45,7 +45,7 @@ public class TernakService {
     }
 
     @Transactional
-    public TernakDTO.Response create(TernakDTO.CreateRequest request) {
+    public TernakDTO.TernakResponse create(TernakDTO.CreateTernakRequest request) {
 
         Kandang kandang = kandangRepository.findById(request.kandangId()).orElseThrow(() -> new ResourceNotFoundException("Kandang", "id", request.kandangId()));
         Integer populasiKandangSaatIni = ternakRepository.countActivePopulasiByKandangId(kandang.getId());
@@ -73,21 +73,21 @@ public class TernakService {
     }
 
     @Transactional(readOnly = true)
-    public TernakDTO.Response getById(Long id) {
+    public TernakDTO.TernakResponse getById(Long id) {
         Ternak ternak = ternakRepository.findByIdWithDetails(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ternak", "id", id));
         return toResponse(ternak);
     }
 
     @Transactional(readOnly = true)
-    public PageResponse<TernakDTO.Response> getAllActive(Pageable pageable) {
+    public PageResponse<TernakDTO.TernakResponse> getAllActive(Pageable pageable) {
         Page<Ternak> page = ternakRepository.findAllByStatusWithDetails(StatusTernak.AKTIF, pageable);
-        Page<TernakDTO.Response> dtoPage = page.map(this::toResponse);
+        Page<TernakDTO.TernakResponse> dtoPage = page.map(this::toResponse);
         return PageResponse.from(dtoPage);
     }
 
     @Transactional
-    public TernakDTO.Response kurangiPopulasiDanAmbilData(Long id, Integer jumlah) {
+    public TernakDTO.TernakResponse kurangiPopulasiDanAmbilData(Long id, Integer jumlah) {
         Object[] result = ternakRepository.kurangiPopulasiDanAmbilData(id, jumlah).orElseThrow(() -> new BusinessLogicException("Gagal: Ternak tidak ditemukan atau jumlah populasi tidak mencukupi"));
 
         Long ternakId = ((Number) result[0]).longValue();
@@ -100,7 +100,7 @@ public class TernakService {
         BigDecimal bobotAwal = (BigDecimal) result[7];
         StatusTernak status = StatusTernak.valueOf((String) result[8]);
 
-        return new TernakDTO.Response(
+        return new TernakDTO.TernakResponse(
                 ternakId,
                 kodeTag,
                 namaKategori,

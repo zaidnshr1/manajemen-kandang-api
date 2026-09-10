@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public class TernakDTO {
 
-    public record CreateRequest(
+    public record CreateTernakRequest(
             String kodeTag,
 
             @NotNull(message = "Tidak boleh kosong")
@@ -33,7 +33,7 @@ public class TernakDTO {
             BigDecimal bobotAwal
     ) {}
 
-    public record Response(
+    public record TernakResponse(
             Long id,
             String kodeTag,
             String namaKategori,

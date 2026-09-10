@@ -9,7 +9,7 @@ import java.time.OffsetDateTime;
 
 public class KandangDTO {
 
-    public record Request (
+    public record KandangRequest (
 
         @NotBlank(message = "Tidak boleh kosong")
         @Size(max = 50, message = "Maksimum 50 karakter")
@@ -24,7 +24,7 @@ public class KandangDTO {
         Integer kapasitas
     ) {}
 
-    public record Response(
+    public record KandangResponse(
             Long id,
             String kodeKandang,
             String namaKandang,

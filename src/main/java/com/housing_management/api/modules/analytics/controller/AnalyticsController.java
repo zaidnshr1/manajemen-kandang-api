@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/analytics")
@@ -19,8 +18,8 @@ public class AnalyticsController {
     private final AnalyticsService analyticsService;
 
     @GetMapping("/adg/{ternakId}")
-    public ResponseEntity<ApiResponse<AnalyticsDTO.AgdResponse>> getADG(@PathVariable Long ternakId) {
-        AnalyticsDTO.AgdResponse response = analyticsService.calculateADG(ternakId);
+    public ResponseEntity<ApiResponse<AnalyticsDTO.AdgResponse>> getADG(@PathVariable Long ternakId) {
+        AnalyticsDTO.AdgResponse response = analyticsService.calculateADG(ternakId);
         return ResponseEntity.ok(ApiResponse.success("Kalkulasi ADG berhasil", response));
     }
 
