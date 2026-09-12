@@ -65,7 +65,7 @@ public class TernakService {
                 .tanggalMasuk(request.tanggalMasuk())
                 .jumlahPopulasi(request.jumlahPopulasi())
                 .bobotAwal(request.bobotAwal())
-                .status(StatusTernak.AFKIR)
+                .status(StatusTernak.AKTIF)
                 .build();
 
         Ternak saved = ternakRepository.save(ternak);

@@ -6,6 +6,7 @@ import com.housing_management.api.modules.master.dto.TernakDTO;
 import com.housing_management.api.modules.master.service.TernakService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -36,6 +37,7 @@ public class TernakController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<PageResponse<TernakDTO.TernakResponse>>> getAllActive(
+            @ParameterObject
             @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         PageResponse<TernakDTO.TernakResponse> responses = ternakService.getAllActive(pageable);
         return ResponseEntity.ok(ApiResponse.success("Berhasil mengambil daftar ternak aktif", responses));
