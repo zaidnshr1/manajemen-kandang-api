@@ -25,5 +25,5 @@ public abstract class BaseEntity {
 
     @CreatedBy
     @Column(name = "owner_id", nullable = false, updatable = false)
-    private Long ownerId = 1L;
+    private Long ownerId;
 }

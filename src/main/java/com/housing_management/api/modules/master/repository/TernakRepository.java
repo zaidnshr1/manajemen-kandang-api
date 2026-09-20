@@ -41,4 +41,14 @@ public interface TernakRepository extends JpaRepository<Ternak, Long> {
                     "k.kode_kandang, t.tanggal_masuk, t.jumlah_populasi, t.bobot_awal, t.status",
             nativeQuery = true)
     Optional<Object[]> kurangiPopulasiDanAmbilData(@Param("id") Long id, @Param("jumlah") Integer jumlah);
+
+    @Query(value = "SELECT t FROM Ternak t " +
+            "JOIN FETCH t.kategori " +
+            "JOIN FETCH t.kandang " +
+            "WHERE t.status = :status AND t.ownerId = :ownerId",
+            countQuery = "SELECT count(t) FROM Ternak t WHERE t.status = :status AND t.ownerId = :ownerId")
+    Page<Ternak> findAllByStatusAndOwnerIdWithDetails(
+            @Param("status") StatusTernak status,
+            @Param("ownerId") Long ownerId,
+            Pageable pageable);
 }

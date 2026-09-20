@@ -43,4 +43,10 @@ public class KandangController {
         KandangDTO.KandangResponse response = kandangService.getByKodeKandang(kodeKandang);
         return ResponseEntity.ok(ApiResponse.success("Data kandang ditemukan", response));
     }
+
+    @GetMapping("/myKandang")
+    public ResponseEntity<ApiResponse<List<KandangDTO.KandangResponse>>> getAllMyKandang() {
+        List<KandangDTO.KandangResponse> responses =kandangService.getAllMyKandang();
+        return ResponseEntity.ok(ApiResponse.success("Berhasil mengambil seluruh data", responses));
+    }
 }

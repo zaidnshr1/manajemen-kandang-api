@@ -42,4 +42,12 @@ public class TernakController {
         PageResponse<TernakDTO.TernakResponse> responses = ternakService.getAllActive(pageable);
         return ResponseEntity.ok(ApiResponse.success("Berhasil mengambil daftar ternak aktif", responses));
     }
+
+    @GetMapping("/myTernak")
+    public ResponseEntity<ApiResponse<PageResponse<TernakDTO.TernakResponse>>> getALlMyTernakActive(
+            @ParameterObject
+            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        PageResponse<TernakDTO.TernakResponse> responses = ternakService.getAllMyTernakAktif(pageable);
+        return ResponseEntity.ok(ApiResponse.success("Berhasil mengambil daftar ternak aktif", responses));
+    }
 }

@@ -2,6 +2,7 @@ package com.housing_management.api.modules.master.service;
 
 import com.housing_management.api.common.exception.DuplicateResourceException;
 import com.housing_management.api.common.exception.ResourceNotFoundException;
+import com.housing_management.api.common.util.SecurityUtils;
 import com.housing_management.api.modules.master.dto.KandangDTO;
 import com.housing_management.api.modules.master.entity.Kandang;
 import com.housing_management.api.modules.master.repository.KandangRepository;
@@ -50,6 +51,15 @@ public class KandangService {
     public KandangDTO.KandangResponse getByKodeKandang(String kodeKandang) {
         Kandang kandang = kandangRepository.findByKodeKandang(kodeKandang).orElseThrow(() -> new ResourceNotFoundException("Kandang", "kode", kodeKandang));
         return mapToResponse(kandang);
+    }
+
+    @Transactional(readOnly = true)
+    public List<KandangDTO.KandangResponse> getAllMyKandang() {
+        Long currentOwnerId = SecurityUtils.getCurrentUserId();
+
+        return kandangRepository.findAllByOwnerId(currentOwnerId).stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     private KandangDTO.KandangResponse mapToResponse(Kandang entity) {

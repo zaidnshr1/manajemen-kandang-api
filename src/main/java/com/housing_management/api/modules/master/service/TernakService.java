@@ -4,6 +4,7 @@ import com.housing_management.api.common.base.PageResponse;
 import com.housing_management.api.common.exception.BusinessLogicException;
 import com.housing_management.api.common.exception.InsufficientPopulasiKandangException;
 import com.housing_management.api.common.exception.ResourceNotFoundException;
+import com.housing_management.api.common.util.SecurityUtils;
 import com.housing_management.api.modules.master.dto.TernakDTO;
 import com.housing_management.api.modules.master.entity.Kandang;
 import com.housing_management.api.modules.master.entity.Kategori;
@@ -111,5 +112,18 @@ public class TernakService {
                 bobotAwal,
                 status
         );
+    }
+
+    @Transactional(readOnly = true)
+    public PageResponse<TernakDTO.TernakResponse> getAllMyTernakAktif(Pageable pageable) {
+        Long currentOwnerId = SecurityUtils.getCurrentUserId();
+
+        Page<Ternak> pageResult = ternakRepository.findAllByStatusAndOwnerIdWithDetails(
+                StatusTernak.AKTIF,
+                currentOwnerId,
+                pageable
+        );
+
+        return PageResponse.from(pageResult.map(this::toResponse));
     }
 }

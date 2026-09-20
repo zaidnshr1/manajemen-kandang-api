@@ -17,7 +17,7 @@ public class JwtTokenProvider {
     @Value("${app.jwt.secret}")
     private String jwtSecret;
 
-    @Value("${app.jwt.expiration}")
+    @Value("${app.jwt.expiration-ms}")
     private long jwtExpirationMs;
 
     private SecretKey getSigningKey() {
@@ -53,7 +53,9 @@ public class JwtTokenProvider {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-        return claims.get("userId", Long.class);
+
+        Number userId = claims.get("userId", Number.class);
+        return userId != null ? userId.longValue() : null;
     }
 
     public String getRoleFromToken(String token) {
