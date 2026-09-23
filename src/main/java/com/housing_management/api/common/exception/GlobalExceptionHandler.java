@@ -95,6 +95,4 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.FORBIDDEN)
                 .body(ApiResponse.error("Akses ditolak: Anda tidak memiliki izin"));
     }
-
-
 }

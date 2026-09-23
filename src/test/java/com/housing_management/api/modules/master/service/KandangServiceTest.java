@@ -64,7 +64,7 @@ public class KandangServiceTest {
     }
 
     @Test
-    @DisplayName("Gagal membuat kandang dan melempar DuplicateResourceException jika kode sudah ada")
+    @DisplayName("Gagal membuat kandang dan melempar DuplicateResourceException")
     void createKandang_DuplicateCode_ThrowsException() {
         KandangDTO.KandangRequest request = new KandangDTO.KandangRequest("KND-SAPI-01", "Kandang Utama", 50);
         when(kandangRepository.existsByKodeKandang("KND-SAPI-01")).thenReturn(true);
